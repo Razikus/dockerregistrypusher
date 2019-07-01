@@ -13,7 +13,7 @@ reg.processImage()
 
 # Running
 ```
-docker-tar-push {REGISTRYURL} {TARPATH} [login] [password]
+docker-tar-push {REGISTRYURL} {TARPATH} [login] [password] [--noSslVerify]
 ```
 
 

@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
      name='dockertarpusher',  
-     version='0.15',
+     version='0.16',
      author="Adam Raźniewski",
      author_email="adam@razniewski.eu",
      description="Docker tar pusher to registry without docker daemon",
