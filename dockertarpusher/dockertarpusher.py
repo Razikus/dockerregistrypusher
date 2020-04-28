@@ -95,7 +95,8 @@ class Registry:
                 creator = ManifestCreator(os.path.join(tmpdirname, configLoc), properlyFormattedLayers)
                 registryManifest = creator.createJson()
                 self.conditionalPrint("[INFO] Pushing manifest")
-                self.pushManifest(registryManifest, image, tag)
+                if not self.pushManifest(registryManifest, image, tag):
+                    self.conditionalPrint("[ERROR] Failed to push manifest")
                 self.conditionalPrint("[INFO] Image pushed")
         return True
     
@@ -160,6 +161,8 @@ class Registry:
         sha256hash = hashlib.sha256()
         
         for chunk in self.read_in_chunks(f, sha256hash):
+            if "http" not in uploadUrl:
+                uploadUrl = self.registryPath + uploadUrl
             offset = index + len(chunk)
             headers['Content-Type'] = 'application/octet-stream'
             headers['Content-Length'] = str(len(chunk))
@@ -178,6 +181,7 @@ class Registry:
                         uploadUrl = r.headers["Location"]
 
             except Exception as e:
+                self.conditionalPrint("[ERROR] " + str(e))
                 return False
         f.close()
         self.conditionalPrint("")
