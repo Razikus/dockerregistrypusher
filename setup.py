@@ -11,7 +11,9 @@ setuptools.setup(
      description="Docker tar pusher to registry without docker daemon",
      long_description=long_description,
      keywords="docker tar dockertar registry",
-     scripts=["bin/docker-tar-push"],
+     entry_points = {
+        'console_scripts': ['docker-tar-push=dockertarpusher.command_line:main'],
+    },
      long_description_content_type="text/markdown",
      url="https://github.com/Razikus/dockerregistrypusher",
      packages=["dockertarpusher"],
