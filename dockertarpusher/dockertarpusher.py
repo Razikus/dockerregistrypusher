@@ -174,7 +174,7 @@ class Registry:
             try:
                 self.conditionalPrint("Pushing... " + str(round((offset / content_size) * 100, 2)) + "%  ", end="\r" )
                 if(last):
-                    r = requests.put(uploadUrl + "&digest=sha256:" + str(sha256hash.hexdigest()), data=chunk, headers=headers, auth = self.auth, verify = self.sslVerify)
+                    r = requests.put(uploadUrl, data=chunk, headers=headers, auth = self.auth, verify = self.sslVerify, params={"digest": "sha256:" + str(sha256hash.hexdigest())})
                 else:
                     r = requests.patch(uploadUrl, data=chunk, headers=headers, auth = self.auth, verify = self.sslVerify)
                     if("Location" in r.headers):
